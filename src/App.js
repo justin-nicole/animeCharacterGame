@@ -1,6 +1,12 @@
 import './App.css';
 import {useState, useEffect} from 'react';
 import GameBox from './GameBox';
+import LandingPage from './LandingPage.js';
+import StartButton from './StartButton.js';
+import Timer from './Timer.js';
+import Score from './Score.js';
+import UserInput from './UserInput.js';
+import Footer from './Footer.js';
 
 function App() {
   const [userInput, setUserInput] = useState('');
@@ -16,7 +22,6 @@ function App() {
         array[j] = temp;
     }
 }
-
 
   useEffect(() =>{
     const getAnimeCharacters = () =>{
@@ -37,16 +42,13 @@ function App() {
     getAnimeCharacters();
   }, [])
 
-
   useEffect(() =>{
     setCurrentCharacter(animeCharacters[1])
   }, [animeCharacters])
  
- 
   return (
     <div className="App">
       <h1>ANIMEANIMEANIME</h1>
-
       {currentCharacter
       ?<GameBox image={currentCharacter.image_url} />
       :null
