@@ -1,5 +1,3 @@
-import './LandingPage.css'
-
 const LandingPage = () => {
     return(
         <header className="LandingPage">
