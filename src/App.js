@@ -53,9 +53,7 @@ function App() {
       ?<GameBox image={currentCharacter.image_url} />
       :null
       }
-      <form>
-      <input type="text"></input>
-      </form>
+      <UserInput />
     </div>
     
   );
