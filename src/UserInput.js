@@ -1,7 +1,17 @@
-const UserInput = () => {
+import {useState} from 'react';
+
+const UserInput = (props) => {
+    const [input, setInput] = useState('');
+
     return(
         <form>
-            <input type="text"></input>
+            <input 
+            type="text"
+            onChange={e => {
+                props.getUserInput(e.target.value)
+                setInput(e.target.value);
+            }}
+            />
         </form>
     )
 }
