@@ -98,6 +98,9 @@ function App() {
         />
         :null
       }
+      <Score
+        score={score}
+      />
     </div>
     
   );
