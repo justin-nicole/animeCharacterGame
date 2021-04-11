@@ -17,8 +17,12 @@ function App() {
   const [currentCharacter, setCurrentCharacter] = useState({
     title: ''
   });
+  //state variable to hold character name
   const [currentCharacterName, setCurrentCharacterName]= useState('');
+  //state variable to hold boolean for determining if guess is correct
+  const [correctGuess, setCorrectGuess]= useState ('false');
   //state variable to hold score information
+  const [characterNumber, setCharacterNumber] = useState(0);
   const [score, setScore] = useState(0);
  
   //function to randomize array of characters from api
@@ -57,26 +61,43 @@ function App() {
 
   //when animecharacters array value is updated (triggering app function to run again), set currentCharacter as the 1st character of the array
   useEffect(() =>{
-    setCurrentCharacter(animeCharacters[1])
+    setCurrentCharacter(animeCharacters[characterNumber])
   }, [animeCharacters])
 
+  //when currentcharacter state variable is updated, set currentName of character to be first name of character in lowercase letters
   useEffect(()=>{    
     currentCharacter
-    ? setCurrentCharacterName(currentCharacter.title.split(" ").pop())
-    : setCurrentCharacterName('');
-    console.log(currentCharacterName)
+      ? setCurrentCharacterName(currentCharacter.title.split(" ").pop().toLowerCase())
+      : setCurrentCharacterName('');
   },[currentCharacter])
+
+  useEffect(()=>{
+    if (correctGuess === true){
+      setScore(score + 1);
+      setCharacterNumber(characterNumber + 1)
+      setCurrentCharacter(animeCharacters[characterNumber+1])
+      setCorrectGuess(false);
+    }
+  },[correctGuess])
+
  
   //app display
   return (
     <div className="App">
       <h1>ANIMEANIMEANIME</h1>
       {currentCharacter
-      ?<GameBox image={currentCharacter.image_url} />
-      :null
+        ?<GameBox image={currentCharacter.image_url} />
+        :null
       }
       <p>{currentCharacterName}</p>
-      <UserInput getUserInput={setUserInput}/>
+      {currentCharacterName
+        ?<UserInput 
+          setUserInput={setUserInput}
+          setCorrectGuess={setCorrectGuess}
+          currentCharacterName={currentCharacterName}
+        />
+        :null
+      }
     </div>
     
   );
