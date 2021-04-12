@@ -7,6 +7,8 @@ import Timer from './Timer.js';
 import Score from './Score.js';
 import UserInput from './UserInput.js';
 import Footer from './Footer.js';
+import CharacterImage from './CharacterImage';
+import CharacterTransition from './CharacterTransition';
 
 function App() {
   //state variable to track user input
@@ -21,9 +23,12 @@ function App() {
   const [currentCharacterName, setCurrentCharacterName]= useState('');
   //state variable to hold boolean for determining if guess is correct
   const [correctGuess, setCorrectGuess]= useState ('false');
-  //state variable to hold score information
   const [characterNumber, setCharacterNumber] = useState(0);
+  //state variable to hold score information
   const [score, setScore] = useState(0);
+  const [transitionCharacter, setTransitionCharacter] = useState({})
+  const [transitionClass, setTransitionClass] = useState(false)
+  
  
   //function to randomize array of characters from api
   function shuffleArray(array) {
@@ -62,6 +67,7 @@ function App() {
   //when animecharacters array value is updated (triggering app function to run again), set currentCharacter as the 1st character of the array
   useEffect(() =>{
     setCurrentCharacter(animeCharacters[characterNumber])
+    setTransitionCharacter(animeCharacters[characterNumber])
   }, [animeCharacters])
 
   //when currentcharacter state variable is updated, set currentName of character to be first name of character in lowercase letters
@@ -76,6 +82,13 @@ function App() {
       setScore(score + 1);
       setCharacterNumber(characterNumber + 1)
       setCurrentCharacter(animeCharacters[characterNumber+1])
+      
+      setTransitionClass(true);
+      setTimeout( () => {
+        setTransitionCharacter(animeCharacters[characterNumber+1])
+        setTransitionClass(false);      
+      },1000)
+
       setCorrectGuess(false);
     }
   },[correctGuess])
@@ -86,10 +99,18 @@ function App() {
     <div className="App">
       <h1>ANIMEANIMEANIME</h1>
       <Timer />
-      {currentCharacter
-        ?<GameBox image={currentCharacter.image_url} />
-        :null
-      }
+      <div className= 'imageContainer'>
+        {currentCharacter
+          ?<CharacterImage image={currentCharacter.image_url} />
+          :null
+        }
+
+        {currentCharacter
+          ?<CharacterTransition image={transitionCharacter.image_url} transition={transitionClass} />
+          :null
+        }
+      </div>
+
       <p>{currentCharacterName}</p>
       {currentCharacterName
         ?<UserInput 

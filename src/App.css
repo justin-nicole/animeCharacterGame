@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+
+.imageContainer{
+  position:relative;
+  display: flex;
+  justify-content: center;
+}
+
+.transitionAnimate{
+  transition: 1s;
+  transform: rotate(360deg) translate(-1500px,-1000px);
+  
+}
+
+.transitionImage{
+  position:absolute;
+}

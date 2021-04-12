@@ -3,6 +3,4 @@ const CharacterImage = (props) =>{
         <img src={props.image}/>
     )
 }
-
-
 export default CharacterImage;
