@@ -8,9 +8,6 @@ const UserInput = (props) => {
             setInput('');
         }
     })
-    
-    
-
     return(
         <form>
             <input 
@@ -20,7 +17,6 @@ const UserInput = (props) => {
             onChange={e => {
                 props.setUserInput(e.target.value)
                 setInput(e.target.value);
-
             }}
             />
         </form>

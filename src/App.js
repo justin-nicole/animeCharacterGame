@@ -85,6 +85,7 @@ function App() {
   return (
     <div className="App">
       <h1>ANIMEANIMEANIME</h1>
+      <Timer />
       {currentCharacter
         ?<GameBox image={currentCharacter.image_url} />
         :null
