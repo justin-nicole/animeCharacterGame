@@ -64,7 +64,7 @@ function App() {
 
   //function to scramble a new word bank
   const newLetterBank = () =>{
-    const numLettersToAdd= 14-currentCharacterName.length;
+    const numLettersToAdd= 12-currentCharacterName.length;
     setLetterBank( shuffle((currentCharacterName)+createRandomLetters(numLettersToAdd)).split(''));
   }  
 

@@ -64,7 +64,7 @@ const UserInput = (props) => {
         const copyOfTotalInput = [...totalInput]
         if (props.currentCharacterName === copyOfTotalInput.join('') && props.currentCharacterName!== ''){
             props.setCorrectGuess(true);
-            setTotalInput([]);
+            setTotalInput(['']);
         }
     })
 
