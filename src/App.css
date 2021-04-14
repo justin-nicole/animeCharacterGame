@@ -49,7 +49,7 @@ body{
 
 .transitionAnimateColor{
   /* transform: rotate(360deg) translate(-1500px,-1000px); */
-  opacity: 25%;
+  opacity: .25;
 
 }
 
