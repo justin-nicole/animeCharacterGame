@@ -7,8 +7,7 @@ const CharacterTransition = (props) =>{
         classTemp2 += ' transitionAnimateSlide'
 
     }
-
-
+    
     return(
         <div className='transitionContainer'>
             <div className={classTemp2}></div>

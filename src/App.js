@@ -1,6 +1,5 @@
 import './App.css';
 import {useState, useEffect} from 'react';
-import GameBox from './GameBox';
 import LandingPage from './LandingPage.js';
 import StartButton from './StartButton.js';
 import Timer from './Timer.js';
@@ -34,14 +33,15 @@ function App() {
  
   //function to randomize array of characters from api
   function shuffleArray(array) {
-    for (var i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = array[i];
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        let temp = array[i];
         array[i] = array[j];
         array[j] = temp;
     }
   }
 
+  //function to randomize letters in a string
   const shuffle = (word) => {
     let shuffledName = '';
     word = word.split('');
@@ -51,6 +51,7 @@ function App() {
     return shuffledName;
   }
 
+  //function to generate random letters
   const createRandomLetters= (n) => {
     let result= [];
     let characters= 'abcdefghijklmnopqrstuvwxyz';
@@ -61,8 +62,9 @@ function App() {
   return result.join('');
   }
 
+  //function to scramble a new word bank
   const newLetterBank = () =>{
-    const numLettersToAdd= 12-currentCharacterName.length;
+    const numLettersToAdd= 14-currentCharacterName.length;
     setLetterBank( shuffle((currentCharacterName)+createRandomLetters(numLettersToAdd)));
   }  
 
@@ -104,6 +106,7 @@ function App() {
       
   },[currentCharacter])
 
+  //make a new word bank when the current charactername changes
   useEffect( ()=>{
     newLetterBank();
   },[currentCharacterName])
@@ -148,7 +151,7 @@ function App() {
           :null
         }
       </div>
-      <h2>{currentCharacterName}</h2>
+
       {currentCharacterName
         ?<UserInput 
           setUserInput={setUserInput}

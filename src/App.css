@@ -13,8 +13,8 @@ img{
 .App {
   text-align: center;
   background-color: #000033;
-  height: 95vh;
-  padding-top: 1%;
+  height: 600px;
+  padding-top: 5%;
 }
 
 body{
@@ -27,7 +27,7 @@ body{
   position:relative;
   display: flex;
   justify-content: center;
-  width: 90vw;
+  width: 300px;
 }
 
 .transitionImage{
@@ -61,7 +61,10 @@ body{
 }
 
 .timerScoreParent,
-.timerScoreContainer{
+.timerScoreContainer,
+.characterNameParent,
+.flexParent
+{
   display:flex;
   justify-content: center;
 }
@@ -78,6 +81,37 @@ h3{
   color: white;
   font-size: 1.2rem;
   margin: 0 auto;
+}
+
+.characterNameLetter{
+  width: calc(200px / 8);
+  height: 26.667px;
+  color: white;
+  font-weight: 700;
+  margin: 0 3px 5px 3px;
+  border-radius: 10%;
+
+}
+.empty{
+  background-color: grey;
+}
+
+.full{
+  background-color: orange;
+
+}
+
+ul{
+  list-style-type: none;
+  margin: 0;
+  margin-top: 5%;
+  padding:0;
+}
+
+.letterBank{
+  display: flex;
+  width: 225px;
+  flex-wrap: wrap;
 }
 
 
