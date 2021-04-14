@@ -27,7 +27,7 @@ function App() {
   const [score, setScore] = useState(0);
   const [transitionCharacter, setTransitionCharacter] = useState({})
   const [transitionClass, setTransitionClass] = useState(false)
-  const [letterBank, setLetterBank]= useState('');
+  const [letterBank, setLetterBank]= useState([]);
  
   
  
@@ -54,7 +54,7 @@ function App() {
   //function to generate random letters
   const createRandomLetters= (n) => {
     let result= [];
-    let characters= 'abcdefghijklmnopqrstuvwxyz';
+    let characters= 'ABCDEFGHIJKLMNOPQRTSUVWXYZ';
     let charactersLength= characters.length;
     for ( let i = 0; i < n; i++ ) {
       result.push(characters.charAt(Math.floor(Math.random() * charactersLength)));
@@ -65,7 +65,7 @@ function App() {
   //function to scramble a new word bank
   const newLetterBank = () =>{
     const numLettersToAdd= 14-currentCharacterName.length;
-    setLetterBank( shuffle((currentCharacterName)+createRandomLetters(numLettersToAdd)));
+    setLetterBank( shuffle((currentCharacterName)+createRandomLetters(numLettersToAdd)).split(''));
   }  
 
 //get data from api when app mounts
@@ -101,7 +101,7 @@ function App() {
   //when currentcharacter state variable is updated, set currentName of character to be first name of character in lowercase letters
   useEffect(()=>{    
     currentCharacter
-      ? setCurrentCharacterName(currentCharacter.title.split(" ").pop().toLowerCase())
+      ? setCurrentCharacterName(currentCharacter.title.split(" ").pop().toUpperCase())
       : setCurrentCharacterName('');
       
   },[currentCharacter])
@@ -158,6 +158,7 @@ function App() {
           setCorrectGuess={setCorrectGuess}
           currentCharacterName={currentCharacterName}
           letterBank={letterBank}
+          setLetterBank={setLetterBank}
         />
         :null
       }
