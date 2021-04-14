@@ -28,6 +28,8 @@ function App() {
   const [score, setScore] = useState(0);
   const [transitionCharacter, setTransitionCharacter] = useState({})
   const [transitionClass, setTransitionClass] = useState(false)
+  const [letterBank, setLetterBank]= useState('');
+ 
   
  
   //function to randomize array of characters from api
@@ -38,7 +40,31 @@ function App() {
         array[i] = array[j];
         array[j] = temp;
     }
-}
+  }
+
+  const shuffle = (word) => {
+    let shuffledName = '';
+    word = word.split('');
+    while (word.length > 0) {
+      shuffledName +=  word.splice(word.length * Math.random() << 0, 1);
+    }
+    return shuffledName;
+  }
+
+  const createRandomLetters= (n) => {
+    let result= [];
+    let characters= 'abcdefghijklmnopqrstuvwxyz';
+    let charactersLength= characters.length;
+    for ( let i = 0; i < n; i++ ) {
+      result.push(characters.charAt(Math.floor(Math.random() * charactersLength)));
+  }
+  return result.join('');
+  }
+
+  const newLetterBank = () =>{
+    const numLettersToAdd= 12-currentCharacterName.length;
+    setLetterBank( shuffle((currentCharacterName)+createRandomLetters(numLettersToAdd)));
+  }  
 
 //get data from api when app mounts
   useEffect(() =>{
@@ -75,7 +101,12 @@ function App() {
     currentCharacter
       ? setCurrentCharacterName(currentCharacter.title.split(" ").pop().toLowerCase())
       : setCurrentCharacterName('');
+      
   },[currentCharacter])
+
+  useEffect( ()=>{
+    newLetterBank();
+  },[currentCharacterName])
 
   //when the correct name is input....
   useEffect(()=>{
@@ -92,7 +123,7 @@ function App() {
         setTransitionCharacter(animeCharacters[characterNumber+1])
         setTransitionClass(false);      
       },300)
-      
+
       //reset the boolean for correct guess to false
       setCorrectGuess(false);
     }
@@ -123,6 +154,7 @@ function App() {
           setUserInput={setUserInput}
           setCorrectGuess={setCorrectGuess}
           currentCharacterName={currentCharacterName}
+          letterBank={letterBank}
         />
         :null
       }
