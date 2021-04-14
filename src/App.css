@@ -1,51 +1,39 @@
+html{
+  font-size: 125%
+}
+.transitionContainer{
+  border: 1.5px solid orange;
+  border-top: 0;
+}
+
+img{
+  display:block;
+}
+
 .App {
   text-align: center;
+  background-color: #000033;
+  height: 95vh;
+  padding-top: 1%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+body{
+  background-color: grey;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.imageContainer{
+.mainGame{
   position:relative;
   display: flex;
   justify-content: center;
+  width: 90vw;
 }
 
 .transitionImage{
   position:absolute;
   left:0;
+  margin: 0;
 }
 
 .transitionContainer,
@@ -71,3 +59,24 @@
   transition: transform 0.3s;
 
 }
+
+.timerScoreParent,
+.timerScoreContainer{
+  display:flex;
+  justify-content: center;
+}
+
+
+.timerScoreContainer{
+  flex-direction: column;
+  width: calc(225px / 2 - 2.5px);
+  border: 2px solid orange
+}
+
+h2{
+  color: white;
+  font-size: 1.2rem;
+  margin: 0 auto;
+}
+
+

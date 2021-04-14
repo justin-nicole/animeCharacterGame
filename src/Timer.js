@@ -29,8 +29,10 @@ const Timer = () => {
       },[]);
 
     return(
-        <div>
-            <p>Timer: {minutes} : { seconds < 10 ? `0${ seconds }` : seconds }</p>
+        <div className='timerScoreContainer'>
+            <h2>Timer
+                 </h2>
+            <h2>{minutes} : { seconds < 10 ? `0${ seconds }` : seconds }</h2>
         </div>
     )
 }

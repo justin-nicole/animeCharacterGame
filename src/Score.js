@@ -1,7 +1,8 @@
 const Score = (props) => {
     return(
-        <div>
-            <p>Score : {props.score}</p>
+        <div className='timerScoreContainer'>
+            <h2>Score</h2>
+            <h2>{props.score}</h2>
         </div>
     )
 }

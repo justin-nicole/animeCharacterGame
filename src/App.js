@@ -91,7 +91,7 @@ function App() {
       setTimeout( () => {
         setTransitionCharacter(animeCharacters[characterNumber+1])
         setTransitionClass(false);      
-      },1000)
+      },300)
       
       //reset the boolean for correct guess to false
       setCorrectGuess(false);
@@ -102,9 +102,12 @@ function App() {
   //app display
   return (
     <div className="App">
-      <h1>ANIMEANIMEANIME</h1>
-      <Timer />
-      <div className= 'imageContainer'>
+      <div className='timerScoreParent'>
+        <Timer /> 
+        <Score score={score}/>
+      </div>
+
+      <div className= 'mainGame'>
         {currentCharacter
           ?<CharacterImage image={currentCharacter.image_url} />
           :null
@@ -114,7 +117,7 @@ function App() {
           :null
         }
       </div>
-      <p>{currentCharacterName}</p>
+      <h2>{currentCharacterName}</h2>
       {currentCharacterName
         ?<UserInput 
           setUserInput={setUserInput}
@@ -123,10 +126,6 @@ function App() {
         />
         :null
       }
-      
-      <Score
-        score={score}
-      />
     </div>
     
   );
