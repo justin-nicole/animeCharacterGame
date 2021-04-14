@@ -1,15 +1,10 @@
 
 import {useState,useEffect} from 'react';
-import InputKey from './InputKey'
+
 
 const UserInput = (props) => {
     const [input, setInput] = useState('');
     const [totalInput, setTotalInput] = useState([]);
-    const [usedLetters, setUsedLetter] = useState([]);
-
-    // const [isInitialRender, setIsInitialRender] = useState(true
-    // let isInitialRender = true;
- 
     const handleClickLetterBank = (e) => {
         console.log(e.target.textContent)
     }
@@ -25,38 +20,27 @@ const UserInput = (props) => {
 
     useEffect( () =>{
         const copyOfLetterBank = [...props.letterBank]
-        const copyOfUsedLetters = [...usedLetters]
-    const copyOfTotalInput = [...totalInput]
+
+        const copyOfTotalInput = [...totalInput]
         if (input === "\b"){
             for (let i = copyOfTotalInput.length-1; i>-1; i--){
                 if (copyOfTotalInput[i]!==''){
-                    copyOfTotalInput.splice(i,1);
+
+                    copyOfLetterBank.splice(copyOfLetterBank.indexOf(''),1,copyOfTotalInput.splice(i,1).join(''));
                     break;
                 }
             }
-
+        props.setLetterBank(copyOfLetterBank);    
         setTotalInput(copyOfTotalInput)
         }else if (copyOfLetterBank.includes(input) === true){
-            copyOfUsedLetters.push(copyOfLetterBank.splice(copyOfLetterBank.indexOf(input),1,''))
-                       props.setLetterBank(copyOfLetterBank); 
-            
-            
             if (copyOfTotalInput[copyOfTotalInput.length-1] === ''){
-                copyOfTotalInput.splice(copyOfTotalInput.indexOf(''),1,input)
+                copyOfTotalInput.splice(copyOfTotalInput.indexOf(''),1,copyOfLetterBank.splice(copyOfLetterBank.indexOf(input),1,'').join(''))
                 setTotalInput(copyOfTotalInput)
+                props.setLetterBank(copyOfLetterBank); 
             }
         }
         setInput('');
     },[input])
-
-
-    // if (props.letterBank.includes(String.fromCharCode(e.keyCode).toLowerCase()) === true){
-    //     setInput(String.fromCharCode(e.keyCode).toLowerCase());
-    // }
-
-
-
-
 
    
     useEffect( () =>{ 
