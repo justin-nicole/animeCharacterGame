@@ -9,12 +9,13 @@ html{
 img{
   display:block;
 }
-
 .App {
   text-align: center;
   background-color: #000033;
-  height: 600px;
-  padding-top: 5%;
+  padding-top: 2.5vh;
+  height: 97.5vh;
+  width: 100vw;
+  max-width: 828px;
 }
 
 body{
@@ -27,7 +28,7 @@ body{
   position:relative;
   display: flex;
   justify-content: center;
-  width: 300px;
+  
 }
 
 .transitionImage{
@@ -83,9 +84,19 @@ h3{
   margin: 0 auto;
 }
 
-.characterNameLetter{
-  width: calc(200px / 8);
-  height: 26.667px;
+.characterNameBank{
+  width: 25px;
+  height: 30px;
+  color: white;
+  font-weight: 700;
+  margin: 0 3px 5px 3px;
+  border-radius: 10%;
+
+}
+
+.characterNameInput{
+  width: 25px;
+  height: 30px;
   color: white;
   font-weight: 700;
   margin: 0 3px 5px 3px;
@@ -104,7 +115,7 @@ h3{
 ul{
   list-style-type: none;
   margin: 0;
-  margin-top: 5%;
+  margin-top: 25px;
   padding:0;
 }
 

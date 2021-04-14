@@ -78,12 +78,12 @@ const UserInput = (props) => {
             { totalInput
                     ?totalInput.map((letter) =>{
                         if (letter === ''){
-                            return <li className="characterNameLetter empty"></li>
+                            return <li className="characterNameInput empty"></li>
                         }else
-                            return <li className="characterNameLetter full">{letter.toUpperCase()}</li>
+                            return <li className="characterNameInput full">{letter.toUpperCase()}</li>
                     })
                     :props.currentCharacterName.split('').map(() =>{
-                        return <li className="characterNameLetter empty"></li>
+                        return <li className="characterNameInput empty"></li>
                     })
                 }
             </ul>
@@ -91,7 +91,7 @@ const UserInput = (props) => {
                 <ul className="characterNameParent letterBank">
                     {
                         props.letterBank.map((letter) =>{
-                            return <li className="characterNameLetter full" onClick={(e) => handleClickLetterBank(e)}>{letter}</li>
+                            return <li className="characterNameBank full" onClick={(e) => handleClickLetterBank(e)}>{letter}</li>
                         })
                     }
                 </ul>
