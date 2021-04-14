@@ -1,10 +1,20 @@
 const CharacterTransition = (props) =>{
     let classTemp= 'transitionImage'
+    let classTemp2= 'transitionFilter '
+        //if a correct guess was input, add the transition class
     if (props.transition){
-        classTemp += ' transitionAnimate'
+        classTemp += ' transitionAnimateColor transitionAnimateSlide';
+        classTemp2 += ' transitionAnimateSlide'
+
     }
+
+
     return(
-        <img className={classTemp} src={props.image}/>
+        <div className='transitionContainer'>
+            <div class={classTemp2}></div>
+            <img className={classTemp} src={props.image}/>
+            
+        </div>
     )
 }
 export default CharacterTransition;

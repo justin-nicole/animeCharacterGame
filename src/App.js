@@ -77,18 +77,23 @@ function App() {
       : setCurrentCharacterName('');
   },[currentCharacter])
 
+  //when the correct name is input....
   useEffect(()=>{
     if (correctGuess === true){
+      //score increases by1
       setScore(score + 1);
+      //currentCharacter is updated to the next one in the array
       setCharacterNumber(characterNumber + 1)
       setCurrentCharacter(animeCharacters[characterNumber+1])
       
+      //transition animation is triggered
       setTransitionClass(true);
       setTimeout( () => {
         setTransitionCharacter(animeCharacters[characterNumber+1])
         setTransitionClass(false);      
       },1000)
-
+      
+      //reset the boolean for correct guess to false
       setCorrectGuess(false);
     }
   },[correctGuess])
@@ -104,13 +109,11 @@ function App() {
           ?<CharacterImage image={currentCharacter.image_url} />
           :null
         }
-
         {currentCharacter
           ?<CharacterTransition image={transitionCharacter.image_url} transition={transitionClass} />
           :null
         }
       </div>
-
       <p>{currentCharacterName}</p>
       {currentCharacterName
         ?<UserInput 
@@ -120,6 +123,7 @@ function App() {
         />
         :null
       }
+      
       <Score
         score={score}
       />
