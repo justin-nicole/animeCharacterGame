@@ -1,38 +1,117 @@
+html{
+  font-size: 125%
+}
+.transitionContainer{
+  border: 1.5px solid orange;
+  border-top: 0;
+}
+
+img{
+  display:block;
+}
+
 .App {
   text-align: center;
+  background-color: #000033;
+  height: 600px;
+  padding-top: 5%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+body{
+  background-color: grey;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.mainGame{
+  position:relative;
+  display: flex;
+  justify-content: center;
+  width: 300px;
+}
+
+.transitionImage{
+  position:absolute;
+  left:0;
+  margin: 0;
+}
+
+.transitionContainer,
+.transitionFilter{
+  position:absolute;
+  width: 225px;
+  height: 350px;
+}
+
+.transitionFilter{
+  background-color: green;
+}
+
+.transitionAnimateColor{
+  /* transform: rotate(360deg) translate(-1500px,-1000px); */
+  opacity: 25%;
+
+}
+
+.transitionAnimateSlide
+{
+  transform: translateX(-225px);
+  transition: transform 0.3s;
+
+}
+
+.timerScoreParent,
+.timerScoreContainer,
+.characterNameParent,
+.flexParent
+{
+  display:flex;
+  justify-content: center;
+}
+
+
+.timerScoreContainer{
+  flex-direction: column;
+  width: calc(225px / 2 - 2.5px);
+  border: 2px solid orange
+}
+
+h2,
+h3{
   color: white;
+  font-size: 1.2rem;
+  margin: 0 auto;
 }
 
-.App-link {
-  color: #61dafb;
+.characterNameLetter{
+  width: calc(200px / 8);
+  height: 26.667px;
+  color: white;
+  font-weight: 700;
+  margin: 0 3px 5px 3px;
+  border-radius: 10%;
+
+}
+.empty{
+  background-color: grey;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.full{
+  background-color: orange;
+
 }
+
+ul{
+  list-style-type: none;
+  margin: 0;
+  margin-top: 5%;
+  padding:0;
+}
+
+.letterBank{
+  display: flex;
+  width: 225px;
+  flex-wrap: wrap;
+}
+
+
