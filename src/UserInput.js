@@ -80,9 +80,7 @@ const UserInput = (props) => {
                         }else
                             return <li className="characterNameLetter full">{letter.toUpperCase()}</li>
                     })
-                    :props.currentCharacterName.split('').map(() =>{
-                        return <li className="characterNameLetter empty"></li>
-                    })
+                    :null
                 }
             </ul>
             <div className="flexParent">
