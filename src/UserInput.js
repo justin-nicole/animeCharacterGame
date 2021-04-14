@@ -24,14 +24,33 @@ const UserInput = (props) => {
     useEffect( () =>{
     const copyOfTotalInput = [...totalInput]
         if (input === "\b"){
-        copyOfTotalInput.pop();
+            for (let i = copyOfTotalInput.length-1; i>-1; i--){
+            if (copyOfTotalInput[i]!==''){
+                copyOfTotalInput.splice(i,1);
+                break;
+            }
+            }
         setTotalInput(copyOfTotalInput)
         }else if (input !== ''){
-        copyOfTotalInput.push(input)
+            if (copyOfTotalInput[copyOfTotalInput.length-1] === ''){
+        copyOfTotalInput.splice(copyOfTotalInput.indexOf(''),1,input)
         setTotalInput(copyOfTotalInput)
+            }
         }
         setInput('');
     },[input])
+
+    useEffect( () =>{      
+        const copyOfTotalInput= [...totalInput]
+        if (copyOfTotalInput.length < props.currentCharacterName.length){
+        for (let i=copyOfTotalInput.length; i<props.currentCharacterName.length; i++){
+            copyOfTotalInput.push('')
+        }
+        setTotalInput(copyOfTotalInput);
+    }
+     
+        
+    },[totalInput])
 
 
 
