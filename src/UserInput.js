@@ -30,6 +30,7 @@ const UserInput = (props) => {
                 break;
             }
             }
+
         setTotalInput(copyOfTotalInput)
         }else if (input !== ''){
             if (copyOfTotalInput[copyOfTotalInput.length-1] === ''){
@@ -40,6 +41,7 @@ const UserInput = (props) => {
         setInput('');
     },[input])
 
+   
     useEffect( () =>{      
         const copyOfTotalInput= [...totalInput]
         if (copyOfTotalInput.length < props.currentCharacterName.length){
@@ -47,27 +49,38 @@ const UserInput = (props) => {
             copyOfTotalInput.push('')
         }
         setTotalInput(copyOfTotalInput);
+    } else if (copyOfTotalInput.length > props.currentCharacterName.length){
+      
+        for (let i=copyOfTotalInput.length; i>props.currentCharacterName.length; i--){
+            copyOfTotalInput.pop()
+        }
+        setTotalInput(copyOfTotalInput);
     }
-     
-        
-    },[totalInput])
-
-
+    },[totalInput,props.currentCharacterName])
 
     useEffect(() =>{
         const copyOfTotalInput = [...totalInput]
         if (props.currentCharacterName === copyOfTotalInput.join('') && props.currentCharacterName!== ''){
             props.setCorrectGuess(true);
-            setTotalInput('');
+            setTotalInput([]);
         }
     })
+
+
+ 
 
 
     return(
         <div>
             <ul className="characterNameParent">
-                { 
-                    props.currentCharacterName.split('').map(() =>{
+            { totalInput
+                    ?totalInput.map((letter) =>{
+                        if (letter === ''){
+                            return <li className="characterNameLetter empty"></li>
+                        }else
+                            return <li className="characterNameLetter full">{letter.toUpperCase()}</li>
+                    })
+                    :props.currentCharacterName.split('').map(() =>{
                         return <li className="characterNameLetter empty"></li>
                     })
                 }
@@ -100,13 +113,25 @@ export default UserInput;
 
 
 
+// { totalInput
+//     ?totalInput.map((letter) =>{
+//         if (letter === ''){
+//             return <li className="characterNameLetter empty"></li>
+//         }else
+//             return <li className="characterNameLetter full">{letter.toUpperCase()}</li>
+//     })
+//     :null
+// }
 
 
 
 
 
-
-
+// { 
+//     props.currentCharacterName.split('').map(() =>{
+//         return <li className="characterNameLetter empty"></li>
+//     })
+// }
 
 
 
