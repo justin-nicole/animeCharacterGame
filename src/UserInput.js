@@ -5,6 +5,8 @@ import InputKey from './InputKey'
 const UserInput = (props) => {
     const [input, setInput] = useState('');
     const [totalInput, setTotalInput] = useState([]);
+    const [usedLetters, setUsedLetter] = useState([]);
+
     // const [isInitialRender, setIsInitialRender] = useState(true
     // let isInitialRender = true;
  
@@ -13,7 +15,7 @@ const UserInput = (props) => {
     }
 
     const logInput = (e) =>{
-        setInput(String.fromCharCode(e.keyCode).toLowerCase());
+        setInput(String.fromCharCode(e.keyCode).toUpperCase());
     }
 
     useEffect(() =>{
@@ -22,27 +24,43 @@ const UserInput = (props) => {
     }, [])
 
     useEffect( () =>{
+        const copyOfLetterBank = [...props.letterBank]
+        const copyOfUsedLetters = [...usedLetters]
     const copyOfTotalInput = [...totalInput]
         if (input === "\b"){
             for (let i = copyOfTotalInput.length-1; i>-1; i--){
-            if (copyOfTotalInput[i]!==''){
-                copyOfTotalInput.splice(i,1);
-                break;
-            }
+                if (copyOfTotalInput[i]!==''){
+                    copyOfTotalInput.splice(i,1);
+                    break;
+                }
             }
 
         setTotalInput(copyOfTotalInput)
-        }else if (input !== ''){
+        }else if (copyOfLetterBank.includes(input) === true){
+            copyOfUsedLetters.push(copyOfLetterBank.splice(copyOfLetterBank.indexOf(input),1,''))
+                       props.setLetterBank(copyOfLetterBank); 
+            
+            
             if (copyOfTotalInput[copyOfTotalInput.length-1] === ''){
-        copyOfTotalInput.splice(copyOfTotalInput.indexOf(''),1,input)
-        setTotalInput(copyOfTotalInput)
+                copyOfTotalInput.splice(copyOfTotalInput.indexOf(''),1,input)
+                setTotalInput(copyOfTotalInput)
             }
         }
         setInput('');
     },[input])
 
+
+    // if (props.letterBank.includes(String.fromCharCode(e.keyCode).toLowerCase()) === true){
+    //     setInput(String.fromCharCode(e.keyCode).toLowerCase());
+    // }
+
+
+
+
+
    
-    useEffect( () =>{      
+    useEffect( () =>{ 
+             
         const copyOfTotalInput= [...totalInput]
         if (copyOfTotalInput.length < props.currentCharacterName.length){
         for (let i=copyOfTotalInput.length; i<props.currentCharacterName.length; i++){
@@ -88,7 +106,7 @@ const UserInput = (props) => {
             <div className="flexParent">
                 <ul className="characterNameParent letterBank">
                     {
-                        props.letterBank.toUpperCase().split('').map((letter) =>{
+                        props.letterBank.map((letter) =>{
                             return <li className="characterNameLetter full" onClick={(e) => handleClickLetterBank(e)}>{letter}</li>
                         })
                     }
