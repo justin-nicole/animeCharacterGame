@@ -9,8 +9,9 @@ const CharacterTransition = (props) =>{
     }
     
     return(
-        <div className='transitionContainer'>
-            <div className='coverTransition'></div>
+        <div className='transitionContainer '>
+            <div className='coverTransitionLeft'></div>
+            <div className='coverTransitionRight'></div>
             <div className={classTemp2}></div>
             <img className={classTemp} src={props.image}/>
         </div>

@@ -5,8 +5,11 @@ import {useState,useEffect} from 'react';
 const UserInput = (props) => {
     const [input, setInput] = useState('');
     const [totalInput, setTotalInput] = useState([]);
+
     const handleClickLetterBank = (e) => {
-        console.log(e.target.textContent)
+
+        console.log(e.target)
+        setInput(e.target.id)
     }
 
     const logInput = (e) =>{
@@ -20,32 +23,57 @@ const UserInput = (props) => {
 
     useEffect( () =>{
         const copyOfLetterBank = [...props.letterBank]
-
         const copyOfTotalInput = [...totalInput]
+        let copyOfInput = input;
+
+        if (copyOfTotalInput[copyOfTotalInput.length-1] === ''){
+            if (copyOfInput.startsWith('bank')){
+                if (copyOfInput[(copyOfInput.length-2)] === '1'){
+                copyOfInput = copyOfInput.substring(copyOfInput.length-2);
+                copyOfTotalInput.splice(copyOfTotalInput.indexOf(''),1,copyOfLetterBank.splice(parseInt(copyOfInput),1,'').join(''))
+                setTotalInput(copyOfTotalInput)
+                props.setLetterBank(copyOfLetterBank); 
+                }else{
+                    copyOfInput = copyOfInput.substring(copyOfInput.length-1);
+                    console.log(copyOfInput)
+                    copyOfTotalInput.splice(copyOfTotalInput.indexOf(''),1,copyOfLetterBank.splice(parseInt(copyOfInput),1,'').join(''))
+                    setTotalInput(copyOfTotalInput)
+                    props.setLetterBank(copyOfLetterBank); 
+                }
+            }else if (copyOfLetterBank.includes(input) === true){
+                if (copyOfTotalInput[copyOfTotalInput.length-1] === ''){
+                    copyOfTotalInput.splice(copyOfTotalInput.indexOf(''),1,copyOfLetterBank.splice(copyOfLetterBank.indexOf(input),1,'').join(''))
+                    setTotalInput(copyOfTotalInput)
+                    props.setLetterBank(copyOfLetterBank); 
+                }
+            } 
+        }
+
+         if (copyOfInput.startsWith('name')){
+            copyOfInput = copyOfInput.substring(copyOfInput.length-1);
+            copyOfLetterBank.splice(copyOfLetterBank.indexOf(''),1,copyOfTotalInput.splice(parseInt(copyOfInput),1).join(''));
+            setTotalInput(copyOfTotalInput)
+            props.setLetterBank(copyOfLetterBank); 
+
+        }
+
         if (input === "\b"){
             for (let i = copyOfTotalInput.length-1; i>-1; i--){
                 if (copyOfTotalInput[i]!==''){
-
                     copyOfLetterBank.splice(copyOfLetterBank.indexOf(''),1,copyOfTotalInput.splice(i,1).join(''));
                     break;
                 }
             }
-        props.setLetterBank(copyOfLetterBank);    
-        setTotalInput(copyOfTotalInput)
-        }else if (copyOfLetterBank.includes(input) === true){
-            if (copyOfTotalInput[copyOfTotalInput.length-1] === ''){
-                copyOfTotalInput.splice(copyOfTotalInput.indexOf(''),1,copyOfLetterBank.splice(copyOfLetterBank.indexOf(input),1,'').join(''))
-                setTotalInput(copyOfTotalInput)
-                props.setLetterBank(copyOfLetterBank); 
-            }
+            props.setLetterBank(copyOfLetterBank);    
+            setTotalInput(copyOfTotalInput)
         }
         setInput('');
     },[input])
 
    
-    useEffect( () =>{ 
-             
+    useEffect( () =>{              
         const copyOfTotalInput= [...totalInput]
+
         if (copyOfTotalInput.length < props.currentCharacterName.length){
         for (let i=copyOfTotalInput.length; i<props.currentCharacterName.length; i++){
             copyOfTotalInput.push('')
@@ -69,6 +97,10 @@ const UserInput = (props) => {
     })
 
 
+    let counter = 0;
+    const counterReset = () =>{
+        counter = 0
+    }
  
 
 
@@ -78,22 +110,27 @@ const UserInput = (props) => {
             { totalInput
                     ?totalInput.map((letter) =>{
                         if (letter === ''){
-                            return <li className="characterNameInput empty"></li>
+                            return <li className="characterNameInput empty" onClick={(e) => handleClickLetterBank(e)} key={`name${counter++}`} id={`name${counter}`} ></li>
                         }else
-                            return <li className="characterNameInput full">{letter.toUpperCase()}</li>
+                            return <li className="characterNameInput full" onClick={(e) => handleClickLetterBank(e)}  key={`name${counter++}`} id={`name${counter}`}>{letter.toUpperCase()}</li>
                     })
                     :props.currentCharacterName.split('').map(() =>{
                         return <li className="characterNameInput empty"></li>
                     })
                 }
+            {counterReset()}
             </ul>
             <div className="flexParent">
                 <ul className="characterNameParent letterBank">
+             
                     {
                         props.letterBank.map((letter) =>{
-                            return <li className="characterNameBank full" onClick={(e) => handleClickLetterBank(e)}>{letter}</li>
+                            if (letter !== ''){
+                                return <li className="characterNameBank full" onClick={(e) => handleClickLetterBank(e)} key={`bank${counter++}`} id={`bank${counter}`}>{letter}</li>
+                            }else return <li className="characterNameBank empty" onClick={(e) => handleClickLetterBank(e)} key={`bank${counter++}`} id={`bank${counter}`}>{letter}</li>
                         })
                     }
+                    {counterReset()}
                 </ul>
             </div>
             <div>
