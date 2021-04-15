@@ -139,7 +139,7 @@ const UserInput = (props) => {
         //reset total input if user presses play again after a gameover
         if (props.playAgain === true) 
         {setTotalInput([''])}
-    })
+    },[totalInput, props] )
 
 
     return(
@@ -175,8 +175,6 @@ const UserInput = (props) => {
                     }
                     {counterReset()}
                 </ul>
-            </div>
-            <div>
             </div>
         </div>
     )

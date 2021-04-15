@@ -184,7 +184,7 @@ function App() {
       {/* landing page shows if player has not clicked start*/}
       {didStart === false
         ?<LandingPage setDidStart={setDidStart} />
-        :() => {} 
+        :null
       }
       {/* gameover screen shows if player runs out of time*/}
       {gameOver
@@ -203,7 +203,12 @@ function App() {
       {didStart === true
       ?<div className= 'mainGame'>
           {currentCharacter
-            ?<CharacterTransition charImage={currentCharacter.image_url} image={transitionCharacter.image_url} transition={transitionClass} />
+            ?<CharacterTransition 
+              charImage={currentCharacter.image_url} 
+              image={transitionCharacter.image_url} 
+              transition={transitionClass} 
+              alt={currentCharacter.title}
+            />
             :null
           }
         </div>
