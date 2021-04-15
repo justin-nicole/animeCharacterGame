@@ -9,24 +9,20 @@ const CharacterTransition = (props) =>{
         classTemp += ' transitionOpacity transitionAnimateSlideLeft';
         classTemp2= 'transitionFilterGreen'
         classTemp2 += ' transitionAnimateSlideLeft'
-
     }
     if (props.transition === 'skip'){
         classTemp += ' transitionOpacity transitionAnimateSlideRight';
         classTemp2= 'transitionFilterRed'
-        console.log (classTemp2)
         classTemp2 += ' transitionAnimateSlideRight'
-        
-
     }
     
     return(
         <div className='transitionContainer '>
-            <CharacterImage image={props.charImage}/>
+            <CharacterImage image={props.charImage} alt={props.alt} />
             <div className='coverTransitionLeft'></div>
             <div className='coverTransitionRight'></div>
             <div className={classTemp2}></div>
-            <img className={classTemp} src={props.image}/>
+            <img className={classTemp} src={props.image} alt={''}/>
         </div>
     )
 }
