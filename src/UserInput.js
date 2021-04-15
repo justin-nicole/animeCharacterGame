@@ -7,8 +7,6 @@ const UserInput = (props) => {
     const [totalInput, setTotalInput] = useState([]);
 
     const handleClickLetterBank = (e) => {
-
-        console.log(e.target)
         setInput(e.target.id)
     }
 
@@ -18,55 +16,57 @@ const UserInput = (props) => {
 
     useEffect(() =>{
         document.addEventListener("keydown", logInput)
- 
     }, [])
 
     useEffect( () =>{
         const copyOfLetterBank = [...props.letterBank]
         const copyOfTotalInput = [...totalInput]
         let copyOfInput = input;
-
-        if (copyOfTotalInput[copyOfTotalInput.length-1] === ''){
-            if (copyOfInput.startsWith('bank')){
-                if (copyOfInput[(copyOfInput.length-2)] === '1'){
-                copyOfInput = copyOfInput.substring(copyOfInput.length-2);
-                copyOfTotalInput.splice(copyOfTotalInput.indexOf(''),1,copyOfLetterBank.splice(parseInt(copyOfInput),1,'').join(''))
-                setTotalInput(copyOfTotalInput)
-                props.setLetterBank(copyOfLetterBank); 
-                }else{
-                    copyOfInput = copyOfInput.substring(copyOfInput.length-1);
-                    console.log(copyOfInput)
+        if (props.gameOver === false){
+            if (copyOfTotalInput[copyOfTotalInput.length-1] === ''){
+                if (copyOfInput.startsWith('bank')){
+                    if (copyOfInput[(copyOfInput.length-2)] === '1'){
+                    copyOfInput = copyOfInput.substring(copyOfInput.length-2);
                     copyOfTotalInput.splice(copyOfTotalInput.indexOf(''),1,copyOfLetterBank.splice(parseInt(copyOfInput),1,'').join(''))
                     setTotalInput(copyOfTotalInput)
                     props.setLetterBank(copyOfLetterBank); 
-                }
-            }else if (copyOfLetterBank.includes(input) === true){
-                if (copyOfTotalInput[copyOfTotalInput.length-1] === ''){
-                    copyOfTotalInput.splice(copyOfTotalInput.indexOf(''),1,copyOfLetterBank.splice(copyOfLetterBank.indexOf(input),1,'').join(''))
-                    setTotalInput(copyOfTotalInput)
-                    props.setLetterBank(copyOfLetterBank); 
-                }
-            } 
-        }
-
-         if (copyOfInput.startsWith('name')){
-            copyOfInput = copyOfInput.substring(copyOfInput.length-1);
-            copyOfLetterBank.splice(copyOfLetterBank.indexOf(''),1,copyOfTotalInput.splice(parseInt(copyOfInput),1).join(''));
-            setTotalInput(copyOfTotalInput)
-            props.setLetterBank(copyOfLetterBank); 
-
-        }
-
-        if (input === "\b"){
-            for (let i = copyOfTotalInput.length-1; i>-1; i--){
-                if (copyOfTotalInput[i]!==''){
-                    copyOfLetterBank.splice(copyOfLetterBank.indexOf(''),1,copyOfTotalInput.splice(i,1).join(''));
-                    break;
-                }
+                    }else{
+                        copyOfInput = copyOfInput.substring(copyOfInput.length-1);
+                        copyOfTotalInput.splice(copyOfTotalInput.indexOf(''),1,copyOfLetterBank.splice(parseInt(copyOfInput),1,'').join(''))
+                        setTotalInput(copyOfTotalInput)
+                        props.setLetterBank(copyOfLetterBank); 
+                    }
+                }else if (copyOfLetterBank.includes(input) === true){
+                    if (copyOfTotalInput[copyOfTotalInput.length-1] === ''){
+                        copyOfTotalInput.splice(copyOfTotalInput.indexOf(''),1,copyOfLetterBank.splice(copyOfLetterBank.indexOf(input),1,'').join(''))
+                        setTotalInput(copyOfTotalInput)
+                        props.setLetterBank(copyOfLetterBank); 
+                    }
+                } 
             }
-            props.setLetterBank(copyOfLetterBank);    
-            setTotalInput(copyOfTotalInput)
+
+            if (copyOfInput.startsWith('name') && totalInput[0] !== ''){
+                copyOfInput = copyOfInput.substring(copyOfInput.length-1);
+                copyOfLetterBank.splice(copyOfLetterBank.indexOf(''),1,copyOfTotalInput.splice(parseInt(copyOfInput),1).join(''));
+                setTotalInput(copyOfTotalInput)
+                props.setLetterBank(copyOfLetterBank); 
+
+            }else if (input === "\b"){
+                for (let i = copyOfTotalInput.length-1; i>-1; i--){
+                    if (copyOfTotalInput[i]!==''){
+                        copyOfLetterBank.splice(copyOfLetterBank.indexOf(''),1,copyOfTotalInput.splice(i,1).join(''));
+                        break;
+                    }
+                }
+                props.setLetterBank(copyOfLetterBank);    
+                setTotalInput(copyOfTotalInput)
+            } else if (input === "À" || input === 'Þ'){
+                props.setDidSkip(true)
+            }
         }
+
+
+
         setInput('');
     },[input])
 
@@ -94,7 +94,13 @@ const UserInput = (props) => {
             props.setCorrectGuess(true);
             setTotalInput(['']);
         }
+        if (props.didSkip === true) 
+        {setTotalInput([''])}
+        if (props.playAgain === true) 
+        {setTotalInput([''])}
     })
+
+
 
 
     let counter = 0;
