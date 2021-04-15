@@ -9,8 +9,10 @@ h1 {
   z-index: 999;
   position: absolute;
   max-width: 829px;
+  top: -2.5vh;
   width: 100vw;
-  height: 95vh;
+  height: 90vh;
+  padding-top: 10vh;
   background-color: rgb(153, 204, 255,0.9)
 }
 footer{
