@@ -1,6 +1,42 @@
 html{
   font-size: 125%
 }
+h1 {
+  color: white;
+  font-size: 3rem;
+}
+.landingPage{
+  z-index: 999;
+  position: absolute;
+  max-width: 829px;
+  top: -2.5vh;
+  width: 100vw;
+  height: 90vh;
+  padding-top: 10vh;
+  background-color: rgb(153, 204, 255,0.9)
+}
+footer{
+  position: absolute;
+  bottom: 0;
+  font-size: 0.8rem;
+  z-index: 1000;
+  width: 100vw;
+  max-width: 829px;
+  background-color: rgb(34, 78, 197);
+  padding: 1% 0;
+}
+footer p {
+  margin: 0
+}
+
+h2,
+h3{
+  color: white;
+  font-size: 1.2rem;
+  margin: 0 auto;
+}
+
+
 .transitionContainer{
   border: 1.5px solid orange;
   border-top: 0;
@@ -11,20 +47,22 @@ img{
 }
 .App {
   text-align: center;
-  background-color: #000033;
+  background-color: rgb(0,0,51,0.99);
   padding-top: 2.5vh;
   height: 97.5vh;
   width: 100vw;
-  max-width: 828px;
+  max-width: 829px;
 }
 
 body{
   background-color: grey;
   display: flex;
   justify-content: center;
+  background-image: url(./assets/background.jpg);
 }
 
-.mainGame{
+.mainGame,
+.gameOverContainer{
   position:relative;
   display: flex;
   justify-content: center;
@@ -38,28 +76,62 @@ body{
 }
 
 .transitionContainer,
-.transitionFilter{
+.transitionFilterGreen,
+.transitionFilterRed,
+.coverTransitionLeft,
+.coverTransitionRight{
   position:absolute;
   width: 225px;
   height: 350px;
 }
-
-.transitionFilter{
-  background-color: green;
+.coverTransitionLeft,
+.coverTransitionRight{
+  width: calc((826px - 225px) / 2 );
 }
 
+.transitionFilterGreen{
+  background-color: green;
+}
+.transitionFilterRed{
+  background-color: red;
+}
+.coverTransitionLeft{
+  background-color: rgb(0,0,51,1);
+  left: -302px;
+  bottom: -2px;
+  height: 100vh;
+  z-index: 10;
+  
+}
+.coverTransitionRight{
+  background-color: rgb(0,0,51,1);
+  right: -302px;
+  bottom: -2px;
+  height: 100vh;
+  z-index: 10;
+}
+
+<<<<<<< HEAD
 .transitionAnimateColor{
   /* transform: rotate(360deg) translate(-1500px,-1000px); */
   opacity: .25;
+=======
+>>>>>>> origin
 
+.transitionOpacity{
+  opacity: .25;
 }
 
-.transitionAnimateSlide
-{
+.transitionAnimateSlideLeft{
   transform: translateX(-225px);
   transition: transform 0.3s;
-
 }
+
+.transitionAnimateSlideRight{
+  transform: translateX(225px);
+  transition: transform 0.3s;
+}
+
 
 .timerScoreParent,
 .timerScoreContainer,
@@ -71,27 +143,29 @@ body{
 }
 
 
+
 .timerScoreContainer{
   flex-direction: column;
-  width: calc(225px / 2 - 2.5px);
-  border: 2px solid orange
+  width: calc(225px / 2 - 2.75px);
+  border: 2.5px solid orange
 }
 
-h2,
-h3{
-  color: white;
-  font-size: 1.2rem;
-  margin: 0 auto;
+.timerContainer,
+.transitionContainer{
+  border-left: 3px solid orange
+}
+.scoreContainer,
+.transitionContainer{
+  border-right: 3px solid orange
 }
 
 .characterNameBank{
-  width: 25px;
-  height: 30px;
+  width: 30px;
+  height: 36px;
   color: white;
   font-weight: 700;
   margin: 0 3px 5px 3px;
   border-radius: 10%;
-
 }
 
 .characterNameInput{
@@ -101,7 +175,6 @@ h3{
   font-weight: 700;
   margin: 0 3px 5px 3px;
   border-radius: 10%;
-
 }
 .empty{
   background-color: grey;
@@ -115,7 +188,7 @@ h3{
 ul{
   list-style-type: none;
   margin: 0;
-  margin-top: 25px;
+  margin-top: 2%;
   padding:0;
 }
 
@@ -125,4 +198,59 @@ ul{
   flex-wrap: wrap;
 }
 
+.skipButton,
+.gameOverButton,
+.playButton{
+  border-radius: 10%;
+  color: white;
+  background-color: red;
+  border: none;
+  font-size: 1rem;
+  margin-top: 1%;
+  padding: 1.5% 5% 1.5% 5%;
+}
+
+.playButton{
+  background-color: rgb(61, 173, 61);
+}
+
+.skipButton:hover,
+.full:hover,
+.playButton:hover{
+  background-color: purple;
+}
+
+.red{
+color:red;
+}
+
+.gameOverContainer{
+  position: absolute;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.95);
+  z-index: 100;
+  max-width: 828px;
+  top: -2.5vh;
+  height: 87.5vh;
+  width: 100vw;
+  min-height: 650px;
+  padding-top: 15vh;
+}
+
+
+.gameOver{
+  color: white;
+  font-size:1.75rem;
+  margin: 0;
+}
+
+.gameOverButton{
+  background-color: purple;
+}
+
+.gameOverButton:hover{
+  background-color: green;
+}
 

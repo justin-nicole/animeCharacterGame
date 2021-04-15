@@ -1,17 +1,17 @@
 import './App.css';
 import {useState, useEffect} from 'react';
 import LandingPage from './LandingPage.js';
-import StartButton from './StartButton.js';
 import Timer from './Timer.js';
 import Score from './Score.js';
 import UserInput from './UserInput.js';
 import Footer from './Footer.js';
 import CharacterImage from './CharacterImage';
 import CharacterTransition from './CharacterTransition';
+import SkipButton from './SkipButton';
+import GameOver from './GameOver';
 
 function App() {
   //state variable to track user input
-  const [userInput, setUserInput] = useState('');
   //state variable to store an array of anime characters from api
   const [animeCharacters, setAnimeCharacters] = useState([]);
   //state variable to hold information about current character that user must guess
@@ -26,8 +26,12 @@ function App() {
   //state variable to hold score information
   const [score, setScore] = useState(0);
   const [transitionCharacter, setTransitionCharacter] = useState({})
-  const [transitionClass, setTransitionClass] = useState(false)
+  const [transitionClass, setTransitionClass] = useState('none')
   const [letterBank, setLetterBank]= useState([]);
+  const [didSkip, setDidSkip] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
+  const [playAgain, setPlayAgain] = useState(false);
+  const [didStart, setDidStart] = useState(false);
  
   
  
@@ -64,7 +68,7 @@ function App() {
 
   //function to scramble a new word bank
   const newLetterBank = () =>{
-    const numLettersToAdd= 14-currentCharacterName.length;
+    const numLettersToAdd= 12-currentCharacterName.length;
     setLetterBank( shuffle((currentCharacterName)+createRandomLetters(numLettersToAdd)).split(''));
   }  
 
@@ -111,57 +115,105 @@ function App() {
     newLetterBank();
   },[currentCharacterName])
 
-  //when the correct name is input....
   useEffect(()=>{
-    if (correctGuess === true){
-      //score increases by1
-      setScore(score + 1);
+    if (correctGuess === true ){
+      setScore(score + 1)
       //currentCharacter is updated to the next one in the array
       setCharacterNumber(characterNumber + 1)
       setCurrentCharacter(animeCharacters[characterNumber+1])
-      
       //transition animation is triggered
-      setTransitionClass(true);
+      setTransitionClass('correct');
       setTimeout( () => {
         setTransitionCharacter(animeCharacters[characterNumber+1])
-        setTransitionClass(false);      
+        setTransitionClass('none');      
       },300)
-
       //reset the boolean for correct guess to false
       setCorrectGuess(false);
+      setDidSkip(false);
     }
-  },[correctGuess])
+    if (didSkip === true ){
+      //currentCharacter is updated to the next one in the array
+      setCharacterNumber(characterNumber + 1)
+      setCurrentCharacter(animeCharacters[characterNumber+1])
+      //transition animation is triggered
+      setTransitionClass('skip');
+      setTimeout( () => {
+        setTransitionCharacter(animeCharacters[characterNumber+1])
+        setTransitionClass('none');      
+      },300)
+      //reset the boolean for correct guess to false
+      setCorrectGuess(false);
+      setDidSkip(false);
+    }
+  },[correctGuess, didSkip])
+
+  useEffect(() =>{
+    if (playAgain){
+      const tempArray = [...animeCharacters]
+      shuffleArray(tempArray);
+      setAnimeCharacters(tempArray);
+      setScore(0);
+      setCharacterNumber(0);
+      setGameOver(false);
+      setPlayAgain(false);
+    }
+
+  },[playAgain])
+
+
+
 
  
   //app display
   return (
     <div className="App">
-      <div className='timerScoreParent'>
-        <Timer /> 
+      {didStart === false
+      ?<LandingPage setDidStart={setDidStart} />
+      :() => {} 
+      }
+      {gameOver
+        ?<GameOver score={score} setPlayAgain={setPlayAgain} />
+        :null
+      }
+      {didStart === true 
+      ?<div className='timerScoreParent'>
+        <Timer setGameOver={setGameOver} playAgain={playAgain}/> 
         <Score score={score}/>
-      </div>
+       </div>
+      :null
+      }
 
-      <div className= 'mainGame'>
-        {currentCharacter
-          ?<CharacterImage image={currentCharacter.image_url} />
-          :null
-        }
-        {currentCharacter
-          ?<CharacterTransition image={transitionCharacter.image_url} transition={transitionClass} />
-          :null
-        }
-      </div>
-
-      {currentCharacterName
+      {didStart === true
+      ?<div className= 'mainGame'>
+          {currentCharacter
+            ?<CharacterImage image={currentCharacter.image_url} />
+            :null
+          }
+          {currentCharacter
+            ?<CharacterTransition image={transitionCharacter.image_url} transition={transitionClass} />
+            :null
+          }
+        </div>
+      :null}
+      {didStart === true
         ?<UserInput 
-          setUserInput={setUserInput}
           setCorrectGuess={setCorrectGuess}
           currentCharacterName={currentCharacterName}
           letterBank={letterBank}
           setLetterBank={setLetterBank}
+          didSkip={didSkip}
+          setDidSkip={setDidSkip}
+          playAgain={playAgain}
+          gameOver={gameOver}
         />
         :null
       }
+      {didStart === true 
+      ?<SkipButton setDidSkip={setDidSkip}/>
+      :null
+      }
+      <Footer />
+    
     </div>
     
   );
