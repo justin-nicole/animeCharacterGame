@@ -7,17 +7,19 @@ const Timer = (props) => {
     let interval = useRef();
 
     const startTimer = () =>{
+        //this determines how much time user has
         const timeMax = 30;
         let timeElapsed = 0;
-
+        //timer that updates the value of minutes and seconds every second
         interval = setInterval ( () => {
             let timeLeft = timeMax-timeElapsed
-
-            if (timeMax-timeElapsed <=0){
-                //stop timer 
+            if (timeLeft <=0){
+                //stop timer when time is up ()
                 clearInterval(interval);
+                //trigger gameOver screen and behaviour
                 props.setGameOver(true);
                 
+                //if game is not over, update timer appropriately
             } else {
                 timeElapsed = timeElapsed+1;
                 timeLeft = timeMax-timeElapsed
@@ -27,14 +29,15 @@ const Timer = (props) => {
             }
         }, 1000)
     }
+    //start timer again is user presses play again button
     useEffect(() => {
         startTimer();
-        // return clearInterval(interval);
       },[props.playAgain]);
 
     return(
         <div className='timerScoreContainer timerContainer'>
             <h2>Timer</h2>
+            {/* if time remaining is under 10 seconds, display time in red */}
             {timeRemaining <= 10 
                 ?<h2 className= 'red'>{minutes} : { seconds < 10 ? `0${ seconds }` : seconds }</h2>
                 :<h2>{minutes} : { seconds < 10 ? `0${ seconds }` : seconds }</h2>

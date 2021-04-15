@@ -1,3 +1,6 @@
+import CharacterImage from "./CharacterImage";
+
+
 const CharacterTransition = (props) =>{
     let classTemp= 'transitionImage'
     let classTemp2= ''
@@ -19,6 +22,7 @@ const CharacterTransition = (props) =>{
     
     return(
         <div className='transitionContainer '>
+            <CharacterImage image={props.charImage}/>
             <div className='coverTransitionLeft'></div>
             <div className='coverTransitionRight'></div>
             <div className={classTemp2}></div>
