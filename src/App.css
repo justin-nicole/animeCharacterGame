@@ -1,6 +1,40 @@
 html{
   font-size: 125%
 }
+h1 {
+  color: white;
+  font-size: 3rem;
+}
+.landingPage{
+  z-index: 999;
+  position: absolute;
+  max-width: 829px;
+  width: 100vw;
+  height: 95vh;
+  background-color: rgb(153, 204, 255,0.9)
+}
+footer{
+  position: absolute;
+  bottom: 0;
+  font-size: 0.8rem;
+  z-index: 1000;
+  width: 100vw;
+  max-width: 829px;
+  background-color: rgb(34, 78, 197);
+  padding: 1% 0;
+}
+footer p {
+  margin: 0
+}
+
+h2,
+h3{
+  color: white;
+  font-size: 1.2rem;
+  margin: 0 auto;
+}
+
+
 .transitionContainer{
   border: 1.5px solid orange;
   border-top: 0;
@@ -60,7 +94,7 @@ body{
   background-color: red;
 }
 .coverTransitionLeft{
-  background-color: rgb(0,0,51,0.99);
+  background-color: rgb(0,0,51,1);
   left: -302px;
   bottom: -2px;
   height: 100vh;
@@ -68,7 +102,7 @@ body{
   
 }
 .coverTransitionRight{
-  background-color: rgb(0,0,51,0.99);
+  background-color: rgb(0,0,51,1);
   right: -302px;
   bottom: -2px;
   height: 100vh;
@@ -117,14 +151,6 @@ body{
   border-right: 3px solid orange
 }
 
-
-h2,
-h3{
-  color: white;
-  font-size: 1.2rem;
-  margin: 0 auto;
-}
-
 .characterNameBank{
   width: 30px;
   height: 36px;
@@ -165,7 +191,8 @@ ul{
 }
 
 .skipButton,
-.gameOverButton{
+.gameOverButton,
+.playButton{
   border-radius: 10%;
   color: white;
   background-color: red;
@@ -175,8 +202,13 @@ ul{
   padding: 1.5% 5% 1.5% 5%;
 }
 
+.playButton{
+  background-color: rgb(61, 173, 61);
+}
+
 .skipButton:hover,
-.full:hover{
+.full:hover,
+.playButton:hover{
   background-color: purple;
 }
 

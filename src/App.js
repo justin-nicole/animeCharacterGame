@@ -1,7 +1,6 @@
 import './App.css';
 import {useState, useEffect} from 'react';
 import LandingPage from './LandingPage.js';
-import StartButton from './StartButton.js';
 import Timer from './Timer.js';
 import Score from './Score.js';
 import UserInput from './UserInput.js';
@@ -13,7 +12,6 @@ import GameOver from './GameOver';
 
 function App() {
   //state variable to track user input
-  const [userInput, setUserInput] = useState('');
   //state variable to store an array of anime characters from api
   const [animeCharacters, setAnimeCharacters] = useState([]);
   //state variable to hold information about current character that user must guess
@@ -33,6 +31,7 @@ function App() {
   const [didSkip, setDidSkip] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [playAgain, setPlayAgain] = useState(false);
+  const [didStart, setDidStart] = useState(false);
  
   
  
@@ -168,28 +167,36 @@ function App() {
   //app display
   return (
     <div className="App">
+      {didStart === false
+      ?<LandingPage setDidStart={setDidStart} />
+      :() => {} 
+      }
       {gameOver
         ?<GameOver score={score} setPlayAgain={setPlayAgain} />
         :null
       }
-      <div className='timerScoreParent'>
+      {didStart === true 
+      ?<div className='timerScoreParent'>
         <Timer setGameOver={setGameOver} playAgain={playAgain}/> 
         <Score score={score}/>
-      </div>
+       </div>
+      :null
+      }
 
-      <div className= 'mainGame'>
-        {currentCharacter
-          ?<CharacterImage image={currentCharacter.image_url} />
-          :null
-        }
-        {currentCharacter
-          ?<CharacterTransition image={transitionCharacter.image_url} transition={transitionClass} />
-          :null
-        }
-      </div>
-      {currentCharacterName
+      {didStart === true
+      ?<div className= 'mainGame'>
+          {currentCharacter
+            ?<CharacterImage image={currentCharacter.image_url} />
+            :null
+          }
+          {currentCharacter
+            ?<CharacterTransition image={transitionCharacter.image_url} transition={transitionClass} />
+            :null
+          }
+        </div>
+      :null}
+      {didStart === true
         ?<UserInput 
-          setUserInput={setUserInput}
           setCorrectGuess={setCorrectGuess}
           currentCharacterName={currentCharacterName}
           letterBank={letterBank}
@@ -201,8 +208,12 @@ function App() {
         />
         :null
       }
-      <SkipButton setDidSkip={setDidSkip}/>
-      
+      {didStart === true 
+      ?<SkipButton setDidSkip={setDidSkip}/>
+      :null
+      }
+      <Footer />
+    
     </div>
     
   );

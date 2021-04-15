@@ -1,8 +1,8 @@
 import {useState, useEffect, useRef} from 'react';
 
 const Timer = (props) => {
-    const [minutes,setMinutes] = useState();
-    const [seconds, setSeconds]= useState();
+    const [minutes,setMinutes] = useState(0);
+    const [seconds, setSeconds]= useState(30);
     const [timeRemaining, setTimeRemaining]= useState();
     let interval = useRef();
 
