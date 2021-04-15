@@ -5,7 +5,6 @@ import Timer from './Timer.js';
 import Score from './Score.js';
 import UserInput from './UserInput.js';
 import Footer from './Footer.js';
-import CharacterImage from './CharacterImage';
 import CharacterTransition from './CharacterTransition';
 import SkipButton from './SkipButton';
 import GameOver from './GameOver';
@@ -22,15 +21,23 @@ function App() {
   const [currentCharacterName, setCurrentCharacterName]= useState('');
   //state variable to hold boolean for determining if guess is correct
   const [correctGuess, setCorrectGuess]= useState ('false');
+  //state variable to keep track of which character number the user is on
   const [characterNumber, setCharacterNumber] = useState(0);
   //state variable to hold score information
   const [score, setScore] = useState(0);
+  //state variable for the transition character that needs to persist for the animation
   const [transitionCharacter, setTransitionCharacter] = useState({})
+  //state variable to apply transition class
   const [transitionClass, setTransitionClass] = useState('none')
+  //state variable to hold letterbank information 
   const [letterBank, setLetterBank]= useState([]);
+  //state variable boolean that determines if user clicked skip button
   const [didSkip, setDidSkip] = useState(false);
+  //state variable boolean that determines if user ran out of time
   const [gameOver, setGameOver] = useState(false);
+  //state variable boolean that determines if user presses play again button
   const [playAgain, setPlayAgain] = useState(false);
+  //state variable boolean that determines if user presses the start button
   const [didStart, setDidStart] = useState(false);
  
   
@@ -93,7 +100,8 @@ function App() {
         setAnimeCharacters(tempCharactersArray);
       })
     }
-    getAnimeCharacters();
+    //call api fetch when app mounts
+      getAnimeCharacters();
   }, [])
 
   //when animecharacters array value is updated (triggering app function to run again), set currentCharacter as the 1st character of the array
@@ -115,6 +123,7 @@ function App() {
     newLetterBank();
   },[currentCharacterName])
 
+  //when a character is correctly guessed or a character is skipped, transition and move to next character
   useEffect(()=>{
     if (correctGuess === true ){
       setScore(score + 1)
@@ -123,12 +132,14 @@ function App() {
       setCurrentCharacter(animeCharacters[characterNumber+1])
       //transition animation is triggered
       setTransitionClass('correct');
+      //allow transition to persist for the animation duration
       setTimeout( () => {
         setTransitionCharacter(animeCharacters[characterNumber+1])
         setTransitionClass('none');      
       },300)
       //reset the boolean for correct guess to false
       setCorrectGuess(false);
+      //reset the boolean for didskip to false
       setDidSkip(false);
     }
     if (didSkip === true ){
@@ -137,16 +148,19 @@ function App() {
       setCurrentCharacter(animeCharacters[characterNumber+1])
       //transition animation is triggered
       setTransitionClass('skip');
+      //allow transition to persist for the animation duration
       setTimeout( () => {
         setTransitionCharacter(animeCharacters[characterNumber+1])
         setTransitionClass('none');      
       },300)
       //reset the boolean for correct guess to false
       setCorrectGuess(false);
+      //reset the boolean for didskip to false
       setDidSkip(false);
     }
   },[correctGuess, didSkip])
 
+  //if user presses play again, shuffle array and reset relevant states
   useEffect(() =>{
     if (playAgain){
       const tempArray = [...animeCharacters]
@@ -164,37 +178,37 @@ function App() {
 
 
  
-  //app display
+  //app display that is largely based on didStart; will return jsx for components until player presses start
   return (
     <div className="App">
+      {/* landing page shows if player has not clicked start*/}
       {didStart === false
-      ?<LandingPage setDidStart={setDidStart} />
-      :() => {} 
+        ?<LandingPage setDidStart={setDidStart} />
+        :() => {} 
       }
+      {/* gameover screen shows if player runs out of time*/}
       {gameOver
         ?<GameOver score={score} setPlayAgain={setPlayAgain} />
         :null
       }
+      {/* timer is rendered and starts when player click start*/}
       {didStart === true 
-      ?<div className='timerScoreParent'>
-        <Timer setGameOver={setGameOver} playAgain={playAgain}/> 
-        <Score score={score}/>
-       </div>
-      :null
+        ?<div className='timerScoreParent'>
+          <Timer setGameOver={setGameOver} playAgain={playAgain}/> 
+          <Score score={score}/>
+         </div>
+        :null
       }
-
+      {/* characters UI will be displayed when player clicks start*/}
       {didStart === true
       ?<div className= 'mainGame'>
           {currentCharacter
-            ?<CharacterImage image={currentCharacter.image_url} />
-            :null
-          }
-          {currentCharacter
-            ?<CharacterTransition image={transitionCharacter.image_url} transition={transitionClass} />
+            ?<CharacterTransition charImage={currentCharacter.image_url} image={transitionCharacter.image_url} transition={transitionClass} />
             :null
           }
         </div>
       :null}
+      {/* input will show when player cliks start*/}
       {didStart === true
         ?<UserInput 
           setCorrectGuess={setCorrectGuess}
@@ -208,12 +222,13 @@ function App() {
         />
         :null
       }
+      {/*skip button shows when player clicks start */}
       {didStart === true 
-      ?<SkipButton setDidSkip={setDidSkip}/>
-      :null
+        ?<SkipButton setDidSkip={setDidSkip}/>
+        :null
       }
+      {/* footer is always rendered*/}
       <Footer />
-    
     </div>
     
   );
