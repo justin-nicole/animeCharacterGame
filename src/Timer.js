@@ -7,7 +7,7 @@ const Timer = (props) => {
     let interval = useRef();
 
     const startTimer = () =>{
-        const timeMax = 5;
+        const timeMax = 30;
         let timeElapsed = 0;
 
         interval = setInterval ( () => {
