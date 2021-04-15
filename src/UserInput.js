@@ -140,7 +140,7 @@ const UserInput = (props) => {
                 </ul>
             </div>
             <div>
-                <h2>{totalInput}</h2>
+
             </div>
 
 
