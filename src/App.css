@@ -111,13 +111,6 @@ body{
   z-index: 10;
 }
 
-<<<<<<< HEAD
-.transitionAnimateColor{
-  /* transform: rotate(360deg) translate(-1500px,-1000px); */
-  opacity: .25;
-=======
->>>>>>> origin
-
 .transitionOpacity{
   opacity: .25;
 }
