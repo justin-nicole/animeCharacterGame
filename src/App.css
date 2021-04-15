@@ -51,15 +51,16 @@ body{
 }
 .coverTransitionLeft{
   background-color: #000033;
-  left: -226px;
-  bottom: 0;
+  left: -227px;
+  bottom: -2px;
   height: 100vh;
   z-index: 10;
+  
 }
 .coverTransitionRight{
   background-color: #000033;
-  right: -226px;
-  bottom: 0;
+  right: -227px;
+  bottom: -2px;
   height: 100vh;
   z-index: 10;
 }
@@ -86,11 +87,22 @@ body{
 }
 
 
+
 .timerScoreContainer{
   flex-direction: column;
   width: calc(225px / 2 - 2.75px);
   border: 2.5px solid orange
 }
+
+.timerContainer,
+.transitionContainer{
+  border-left: 3px solid orange
+}
+.scoreContainer,
+.transitionContainer{
+  border-right: 3px solid orange
+}
+
 
 h2,
 h3{
