@@ -9,6 +9,7 @@ import CharacterTransition from './CharacterTransition';
 import SkipButton from './SkipButton';
 import GameOver from './GameOver';
 
+
 function App() {
   //state variable to track user input
   //state variable to store an array of anime characters from api
