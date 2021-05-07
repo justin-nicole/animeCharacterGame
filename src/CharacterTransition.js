@@ -19,8 +19,6 @@ const CharacterTransition = (props) =>{
     return(
         <div className='transitionContainer '>
             <CharacterImage image={props.charImage} alt={props.alt} />
-            <div className='coverTransitionLeft'></div>
-            <div className='coverTransitionRight'></div>
             <div className={classTemp2}></div>
             <img className={classTemp} src={props.image} alt={''}/>
         </div>

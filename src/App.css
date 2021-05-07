@@ -94,6 +94,7 @@ footer p {
 .transitionContainer{
  position: relative;
  border: 2px solid orange;
+ overflow:hidden;
 }
 
 
