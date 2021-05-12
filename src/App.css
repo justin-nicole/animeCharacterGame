@@ -57,7 +57,8 @@ footer{
   height: 10%;
 }
 footer p {
-  margin: 0
+  margin: 0;
+  font-size: 1rem;
 }
 .App {
   text-align: center;
@@ -266,8 +267,27 @@ color:red;
   background-color: green;
 }
 
-@media (max-height: 670px){
+@media (max-height: 790px){
+  footer p{
+    font-size: 0.7rem;
+  }
+
+}
+@media (max-height: 690px){
   footer{
     bottom:-10%;
+  }
+}
+
+@media (max-height: 620px){
+  footer{
+    bottom:-20%;
+  }
+  .App{
+    height: 110vh;
+    max-height: 110vh;
+  }
+  .landingPage{
+    height: 110vh;
   }
 }
