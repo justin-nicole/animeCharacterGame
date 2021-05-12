@@ -181,6 +181,7 @@ function App() {
  
   //app display that is largely based on didStart; will return jsx for components until player presses start
   return (
+    <>
     <div className="App">
       {/* landing page shows if player has not clicked start*/}
       {didStart === false
@@ -236,6 +237,9 @@ function App() {
       {/* footer is always rendered*/}
       <Footer />
     </div>
+
+
+    </>
     
   );
 }
