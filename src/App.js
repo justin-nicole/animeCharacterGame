@@ -84,17 +84,18 @@ function App() {
   useEffect(() =>{
     const getAnimeCharacters = () =>{
       //use proxy server to bypass CORS error
-      const proxiedUrl = 'https://api.jikan.moe/v3/top/characters/'
+      const proxiedUrl = 'https://api.jikan.moe/v4/top/characters'
       const url = new URL("https://proxy.hackeryou.com");
       
       url.search = new URLSearchParams({
           reqUrl: proxiedUrl
       })
-      fetch(url)
+      fetch(proxiedUrl)
       .then(res => res.json())
       .then((jsonResp) =>{
         //store data in temp array
-        const tempCharactersArray = jsonResp.top
+        const tempCharactersArray = jsonResp.data
+        console.log (tempCharactersArray)
         //shuffle temp array
         shuffleArray(tempCharactersArray);
         //assign shuffled array to stateful variable 
@@ -113,10 +114,11 @@ function App() {
 
   //when currentcharacter state variable is updated, set currentName of character to be first name of character in lowercase letters
   useEffect(()=>{    
+   if (animeCharacters[0]){
     currentCharacter
-      ? setCurrentCharacterName(currentCharacter.title.split(" ").pop().toUpperCase())
+      ? setCurrentCharacterName(currentCharacter.name.split(" ").pop().toUpperCase())
       : setCurrentCharacterName('');
-      
+   }
   },[currentCharacter])
 
   //make a new word bank when the current charactername changes
@@ -206,8 +208,9 @@ function App() {
       ?<div className= 'mainGame'>
           {currentCharacter
             ?<CharacterTransition 
-              charImage={currentCharacter.image_url} 
-              image={transitionCharacter.image_url} 
+            
+              charImage={currentCharacter.images.jpg.image_url} 
+              image={transitionCharacter.images.jpg.image_url} 
               transition={transitionClass} 
               alt={currentCharacter.title}
             />
