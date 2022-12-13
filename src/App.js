@@ -116,7 +116,7 @@ function App() {
   useEffect(()=>{    
    if (animeCharacters[0]){
     currentCharacter
-      ? setCurrentCharacterName(currentCharacter.name.split(" ").pop().toUpperCase())
+      ? setCurrentCharacterName(currentCharacter.name.split(" ").shift().toUpperCase())
       : setCurrentCharacterName('');
    }
   },[currentCharacter])
