@@ -65,7 +65,6 @@ footer p {
   background-color: rgb(0,0,51,0.99);
   padding-top: 2.5vh;
   height: 100vh;
-
   width: 100vw;
   max-width: 829px;
 }
@@ -275,19 +274,20 @@ color:red;
 }
 @media (max-height: 690px){
   footer{
-    bottom:-10%;
+    display: none;
   }
 }
+@media (max-height: 600px) {
+  footer {
+    display: none;
+  }
 
-@media (max-height: 620px){
-  footer{
-    bottom:-20%;
+  .skipButton{
+    padding-top: 0%;
+    padding-bottom: 0%;
   }
-  .App{
-    height: 110vh;
-    max-height: 110vh;
-  }
-  .landingPage{
-    height: 110vh;
-  }
+
+    h1 {
+      font-size: 2rem;
+    } 
 }
