@@ -99,7 +99,6 @@ function App() {
       .then((jsonResp) =>{
         //store data in temp array
         const tempCharactersArray = jsonResp.data
-        console.log (tempCharactersArray)
         //shuffle temp array
         shuffleArray(tempCharactersArray);
         //assign shuffled array to stateful variable 
