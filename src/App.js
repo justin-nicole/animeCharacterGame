@@ -8,6 +8,8 @@ import Footer from './Footer.js';
 import CharacterTransition from './CharacterTransition';
 import SkipButton from './SkipButton';
 import GameOver from './GameOver';
+import Tester from './Tester';
+import TesterButton from './TesterButton';
 
 
 function App() {
@@ -40,6 +42,8 @@ function App() {
   const [playAgain, setPlayAgain] = useState(false);
   //state variable boolean that determines if user presses the start button
   const [didStart, setDidStart] = useState(false);
+  const [testerEnabled, setTesterEnabled] = useState(false);
+
  
   
  
@@ -234,9 +238,25 @@ function App() {
       }
       {/*skip button shows when player clicks start */}
       {didStart === true 
-        ?<SkipButton setDidSkip={setDidSkip}/>
+        ?<SkipButton 
+        setDidSkip={setDidSkip}/>
         :null
       }
+       {didStart === true 
+        ?<TesterButton 
+        setTesterEnabled={setTesterEnabled}
+        testerEnabled={testerEnabled}/>
+        :null
+      }
+
+
+      {testerEnabled===true && didStart === true
+      ?<Tester
+      currentCharacterName={currentCharacterName}
+      />
+      :null}
+
+
       {/* footer is always rendered*/}
       <Footer />
     </div>

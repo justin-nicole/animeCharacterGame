@@ -211,7 +211,8 @@ ul{
 
 .skipButton,
 .gameOverButton,
-.playButton{
+.playButton,
+.testerButton{
   border-radius: 10%;
   color: white;
   background-color: red;
@@ -230,6 +231,27 @@ ul{
 .full:hover,
 .playButton:hover{
   background-color: purple;
+  cursor: pointer;
+}
+
+.testerButton{
+  display:block;
+  margin: auto;
+ margin-top: 2.5%;
+ background-color: white;
+ color:black;
+}
+
+.testerButton:hover{
+ cursor: pointer;
+}
+
+.testerButtonPressed{
+  background-color: green;
+}
+
+.testAnswer{
+  color: white;
 }
 
 .red{
@@ -264,6 +286,7 @@ color:red;
 
 .gameOverButton:hover{
   background-color: green;
+  cursor:pointer;
 }
 
 @media (max-height: 790px){
