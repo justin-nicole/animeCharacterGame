@@ -57,7 +57,8 @@ footer{
   height: 10%;
 }
 footer p {
-  margin: 0
+  margin: 0;
+  font-size: 1rem;
 }
 .App {
   text-align: center;
@@ -133,7 +134,6 @@ footer p {
   height: 100vh;
   z-index: 10;
 }
-
 
 .transitionOpacity{
   opacity: .25;
@@ -289,7 +289,13 @@ color:red;
   cursor:pointer;
 }
 
-@media (max-height: 670px){
+@media (max-height: 790px){
+  footer p{
+    font-size: 0.7rem;
+  }
+
+}
+@media (max-height: 690px){
   footer{
     display: none;
   }
@@ -298,6 +304,7 @@ color:red;
   footer {
     display: none;
   }
+
   .skipButton{
     padding-top: 0%;
     padding-bottom: 0%;
